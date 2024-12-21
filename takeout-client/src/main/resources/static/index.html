@@ -47,10 +47,36 @@
             });
 
             //监听行工具事件
+            // table.on('tool(test)', function (obj) {
+            //     var data = obj.data;
+            //     if (obj.event === 'order') {
+            //         window.location.href="/order/save/"+data.id;
+            //     }
+            // });
             table.on('tool(test)', function (obj) {
                 var data = obj.data;
                 if (obj.event === 'order') {
-                    window.location.href="/order/save/"+data.id;
+                    // 使用 fetch 进行异步请求
+                    fetch("/order/save/" + data.id, {
+                        method: 'GET'
+                    })
+                        .then(response => {
+                            if (!response.ok) {
+                                // 如果响应状态码不是 2xx，则抛出错误
+                                throw new Error("请求失败，状态码：" + response.status);
+                            }
+                            return response.text(); // 或 response.json()，视后端返回类型而定
+                        })
+                        .then(result => {
+                            // 请求成功后的处理
+                            console.log("请求成功：", result);
+                            window.location.href = "/view/redirect/index"; // 或者你希望跳转的页面
+                        })
+                        .catch(error => {
+                            // 捕获请求失败的错误
+                            console.error("请求出错：", error);
+                            alert("系统繁忙，请稍后再试！");
+                        });
                 }
             });
         });

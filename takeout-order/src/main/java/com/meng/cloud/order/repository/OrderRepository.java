@@ -1,7 +1,7 @@
 package com.meng.cloud.order.repository;
 
 
-import com.meng.cloud.order.entity.Order;
+import com.meng.cloud.common.entity.Order;
 
 import java.util.List;
 

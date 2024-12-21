@@ -15,12 +15,14 @@
 	<description>springcloud-takeout</description>
 	<modules>
 		<module>takeout-account</module>
-		<module>mybatis-generator</module>
 		<module>takeout-client</module>
         <module>takeout-menu</module>
 		<module>takeout-order</module>
 		<module>takeout-user</module>
-	</modules>
+		<module>takeout-admin</module>
+		<module>takeout-common</module>
+        <module>takeout-gateway</module>
+    </modules>
 
 	<packaging>pom</packaging>
 

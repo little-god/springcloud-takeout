@@ -1,12 +1,13 @@
 package com.meng.cloud.user.repository;
 
 
-import com.meng.cloud.user.entity.User;
-//import tk.mybatis.mapper.common.Mapper;
+import com.meng.cloud.common.entity.User;
 
 import java.util.List;
 
 public interface UserRepository {
+
+    public User login(String username, String password);
 
     public List<User> findAll(int index, int limit);
 

@@ -2,12 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.meng.cloud.order.repository.OrderRepository">
 
-	<resultMap id="orderMap" type="com.meng.cloud.order.entity.Order">
+	<resultMap id="orderMap" type="com.meng.cloud.common.entity.Order">
 		<id property="id" column="oid"/>
 		<result property="date" column="date"/>
 		<result property="state" column="state"/>
 		<!-- 映射menu -->
-		<association property="menu" javaType="com.meng.cloud.order.entity.Menu">
+		<association property="menu" javaType="com.meng.cloud.common.entity.Menu">
 			<id property="id" column="mid"/>
 			<result property="name" column="name"/>
 			<result property="price" column="price"/>
@@ -15,25 +15,25 @@
 		</association>
 	</resultMap>
 
-	<resultMap id="orderMap2" type="com.meng.cloud.order.entity.Order">
+	<resultMap id="orderMap2" type="com.meng.cloud.common.entity.Order">
 		<id property="id" column="oid"/>
 		<result property="date" column="date"/>
 		<!-- 映射menu -->
-		<association property="menu" javaType="com.meng.cloud.order.entity.Menu">
+		<association property="menu" javaType="com.meng.cloud.common.entity.Menu">
 			<id property="id" column="mid"/>
 			<result property="name" column="name"/>
 			<result property="price" column="price"/>
 			<result property="flavor" column="flavor"/>
 		</association>
 		<!-- 映射user -->
-		<association property="user" javaType="com.meng.cloud.order.entity.User">
+		<association property="user" javaType="com.meng.cloud.common.entity.User">
 			<id property="id" column="uid"/>
 			<result property="nickname" column="nickname"/>
 			<result property="telephone" column="telephone"/>
 			<result property="address" column="address"/>
 		</association>
 	</resultMap>
-	<insert id="save" parameterType="com.meng.cloud.order.entity.Order">
+	<insert id="save" parameterType="com.meng.cloud.common.entity.Order">
 		insert into t_order(uid,mid,aid,date,state) values(#{user.id},#{menu.id},#{admin.id},#{date},0)
 	</insert>
 

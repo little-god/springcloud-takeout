@@ -1,6 +1,7 @@
 package com.meng.cloud.user.controller;
 
-import com.meng.cloud.user.entity.User;
+import com.meng.cloud.common.entity.Account;
+import com.meng.cloud.common.entity.User;
 import com.meng.cloud.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -22,6 +23,19 @@ public class UserController {
     @GetMapping("/index")
     public String index(){
         return "用户服务端口号："+ this.port;
+    }
+
+    /**
+     * 用户登录接口
+     * @param username
+     * @param password
+     * @return
+     */
+    @GetMapping("/login/{username}/{password}/{type}")
+    public Account login(@PathVariable("username") String username, @PathVariable("password") String password, @PathVariable("type") String type) {
+        Account account = new Account();
+        account = userRepository.login(username, password);
+        return account;
     }
 
     /**

@@ -1,17 +1,15 @@
 package com.meng.cloud.client.controller;
 
 
-import com.meng.cloud.client.entity.Account;
-import com.meng.cloud.client.entity.Admin;
-import com.meng.cloud.client.entity.User;
-import com.meng.cloud.client.feign.AccountFeign;
+import com.meng.cloud.common.entity.Account;
+import com.meng.cloud.common.entity.Admin;
+import com.meng.cloud.common.entity.User;
+import com.meng.cloud.common.feign.AccountFeign;
 import com.meng.cloud.client.utils.ReflectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 
 import jakarta.servlet.http.HttpSession;
 import java.util.Date;
@@ -32,6 +30,7 @@ public class AccountController {
      * @return
      */
     @PostMapping("/login")
+    @CircuitBreaker(name = "takeout-account", fallbackMethod = "loginCircuitFallback")
     public String login(@RequestParam("username") String username, @RequestParam("password") String password, @RequestParam("type") String type, HttpSession session) {
         Account account = accountFeign.login(username, password, type);
         String target = null;
@@ -54,6 +53,9 @@ public class AccountController {
         return target;
     }
 
+    public String loginCircuitFallback(String username, String password, String type, HttpSession session,Throwable t) {
+        return "登录系统繁忙，请稍后再登录！";
+    }
     /**
      * 用户登出
      * @param session

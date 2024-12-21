@@ -1,8 +1,8 @@
 package com.meng.cloud.client.controller;
 
-import com.meng.cloud.client.entity.Menu;
-import com.meng.cloud.client.entity.MenuVO;
-import com.meng.cloud.client.feign.MenuFeign;
+import com.meng.cloud.common.entity.Menu;
+import com.meng.cloud.common.entity.MenuVO;
+import com.meng.cloud.common.feign.MenuFeign;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;

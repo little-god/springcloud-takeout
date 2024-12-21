@@ -9,7 +9,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @SpringBootApplication
 @EnableDiscoveryClient
-@EnableFeignClients
+@EnableFeignClients(basePackages = "com.meng.cloud.common.feign")
 @ServletComponentScan
 public class ClientApplication {
     public static void main(String[] args) {

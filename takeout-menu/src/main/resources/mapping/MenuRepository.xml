@@ -2,14 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.meng.cloud.menu.repository.MenuRepository">
 
-    <resultMap id="menuMap" type="com.meng.cloud.menu.entity.Menu">
+    <resultMap id="menuMap" type="com.meng.cloud.common.entity.Menu">
         <id property="id" column="mid"/>
         <result property="name" column="mname"/>
         <result property="author" column="author"/>
         <result property="price" column="price"/>
         <result property="flavor" column="flavor"/>
         <!-- 映射type -->
-        <association property="type" javaType="com.meng.cloud.menu.entity.Type">
+        <association property="type" javaType="com.meng.cloud.common.entity.Type">
             <id property="id" column="tid"/>
             <result property="name" column="tname"/>
         </association>
@@ -23,7 +23,7 @@
 		select count(*) from t_menu;
 	</select>
 
-    <insert id="save" parameterType="com.meng.cloud.menu.entity.Menu">
+    <insert id="save" parameterType="com.meng.cloud.common.entity.Menu">
 		insert into t_menu(name,price,flavor,tid) values(#{name},#{price},#{flavor},#{type.id})
 	</insert>
 
@@ -31,7 +31,7 @@
 		select id mid,name mname,price,flavor,tid from t_menu where id = #{id}
 	</select>
 
-    <update id="update" parameterType="com.meng.cloud.menu.entity.Menu">
+    <update id="update" parameterType="com.meng.cloud.common.entity.Menu">
 		update t_menu set name = #{name},price = #{price},flavor = #{flavor},tid = #{type.id} where id = #{id}
 	</update>
 

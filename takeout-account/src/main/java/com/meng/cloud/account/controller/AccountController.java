@@ -1,8 +1,8 @@
 package com.meng.cloud.account.controller;
 
-import com.meng.cloud.account.entity.Account;
-import com.meng.cloud.account.repository.AdminRepository;
-import com.meng.cloud.account.repository.UserRepository;
+import com.meng.cloud.common.entity.Account;
+import com.meng.cloud.common.feign.AdminFeign;
+import com.meng.cloud.common.feign.UserFeign;
 import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,11 +10,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-/**
- * @Author: wench
- * @Description:
- * @Date: create in 2020/12/26 13:30
- */
 @RestController
 @RequestMapping("/account")
 public class AccountController {
@@ -23,10 +18,10 @@ public class AccountController {
     private String port;
 
     @Resource
-    UserRepository userRepository;
+    private AdminFeign adminFeignApi;
 
     @Resource
-    AdminRepository adminRepository;
+    private UserFeign userFeignApi;
 
     @GetMapping("/index")
     public String index() {
@@ -45,10 +40,10 @@ public class AccountController {
         Account account = new Account();
         switch (type) {
             case "user":
-                account = userRepository.login(username, password);
+                account = userFeignApi.login(username, password, type);
                 break;
             case "admin":
-                account = adminRepository.login(username, password);
+                account = adminFeignApi.login(username, password, type);
                 break;
         }
         return account;

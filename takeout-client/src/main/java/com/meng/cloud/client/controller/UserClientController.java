@@ -1,8 +1,8 @@
 package com.meng.cloud.client.controller;
 
-import com.meng.cloud.client.entity.User;
-import com.meng.cloud.client.entity.UserVO;
-import com.meng.cloud.client.feign.UserFeign;
+import com.meng.cloud.common.entity.User;
+import com.meng.cloud.common.entity.UserVO;
+import com.meng.cloud.common.feign.UserFeign;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;

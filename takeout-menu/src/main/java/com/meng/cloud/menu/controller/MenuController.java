@@ -1,7 +1,7 @@
 package com.meng.cloud.menu.controller;
 
-import com.meng.cloud.menu.entity.Menu;
-import com.meng.cloud.menu.entity.Type;
+import com.meng.cloud.common.entity.Menu;
+import com.meng.cloud.common.entity.Type;
 import com.meng.cloud.menu.repository.MenuRepository;
 import com.meng.cloud.menu.repository.TypeRepository;
 import jakarta.annotation.Resource;

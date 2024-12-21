@@ -1,11 +1,14 @@
 package com.meng.cloud.order.controller;
 
-import com.meng.cloud.order.entity.Order;
-import com.meng.cloud.order.entity.OrderVO;
+import com.meng.cloud.common.entity.Menu;
+import com.meng.cloud.common.entity.Order;
+import com.meng.cloud.common.entity.OrderVO;
 import com.meng.cloud.order.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.concurrent.TimeUnit;
 
 @RestController
 @RequestMapping("/order")
@@ -28,6 +31,19 @@ public class OrderController {
      */
     @PostMapping("/save")
     public void save(@RequestBody Order order){
+        Menu menu = order.getMenu();
+        Long menuId = menu.getId();
+        if(menuId == 10){
+            throw new RuntimeException("无法下单西葫芦虾仁蒸饺");
+        }
+        if(menuId == 12){
+            try {
+                TimeUnit.SECONDS.sleep(5);
+            }
+            catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
         orderRepository.save(order);
     }
 

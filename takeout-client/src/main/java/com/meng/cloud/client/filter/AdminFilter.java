@@ -1,7 +1,7 @@
 package com.meng.cloud.client.filter;
 
 
-import com.meng.cloud.client.entity.Admin;
+import com.meng.cloud.common.entity.Admin;
 import org.springframework.stereotype.Component;
 
 import jakarta.servlet.*;

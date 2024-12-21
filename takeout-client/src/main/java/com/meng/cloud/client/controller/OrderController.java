@@ -1,8 +1,10 @@
 package com.meng.cloud.client.controller;
 
 
-import com.meng.cloud.client.entity.*;
-import com.meng.cloud.client.feign.OrderFeign;
+import cn.hutool.core.date.DateUtil;
+import com.meng.cloud.common.entity.*;
+import com.meng.cloud.common.feign.OrderFeign;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +26,7 @@ public class OrderController {
      * @return
      */
     @GetMapping("/save/{mid}")
+    @CircuitBreaker(name = "takeout-order", fallbackMethod = "ordersaveCircuitFallback")
     public String save(@PathVariable("mid") long mid, HttpSession session){
         User user = (User) session.getAttribute("user");
         Order order = new Order();
@@ -32,8 +35,15 @@ public class OrderController {
         order.setUser(user);
         order.setMenu(menu);
         order.setDate(new Date());
+        System.out.println("调用开始-----:"+DateUtil.now());
         orderFeign.save(order);
-        return "redirect:/account/redirect/order";
+        System.out.println("调用结束-----:"+ DateUtil.now());
+        return "redirect:/view/redirect/index";
+    }
+
+    public String ordersaveCircuitFallback(long mid, HttpSession session, Throwable t) {
+        t.printStackTrace();
+        return "redirect:/view/redirect/orderSaveCircuitFallback";
     }
 
     /**
@@ -73,6 +83,6 @@ public class OrderController {
     public String updateState(@PathVariable("id") long id,@PathVariable("state") int state,HttpSession session){
         Admin admin = (Admin) session.getAttribute("admin");
         orderFeign.updateState(id,state,admin.getId());
-        return "redirect:/account/redirect/order_handler";
+        return "redirect:/view/redirect/order_handler";
     }
 }

@@ -1,6 +1,6 @@
 package com.meng.cloud.menu.repository;
 
-import com.meng.cloud.menu.entity.Type;
+import com.meng.cloud.common.entity.Type;
 
 import java.util.List;
 
