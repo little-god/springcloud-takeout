@@ -14,9 +14,9 @@ spring:
           default:
             #全局配置
             #连接超时时间
-            connectTimeout: 20000
+            connectTimeout: 3000
             #读取超时时间
-            readTimeout: 20000
+            readTimeout: 3000
       #开启httpclient5
       httpclient:
         hc5:

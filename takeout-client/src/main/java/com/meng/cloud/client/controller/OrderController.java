@@ -35,8 +35,12 @@ public class OrderController {
         order.setUser(user);
         order.setMenu(menu);
         order.setDate(new Date());
-        System.out.println("调用开始-----:"+DateUtil.now());
-        orderFeign.save(order);
+        try{
+            System.out.println("调用开始-----:"+DateUtil.now());
+            orderFeign.save(order);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         System.out.println("调用结束-----:"+ DateUtil.now());
         return "redirect:/view/redirect/index";
     }
